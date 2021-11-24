@@ -1,1 +1,1 @@
-web: java -cp target/classes/com/example/restservice*
+worker: java -jar target/<jarname>.jar
