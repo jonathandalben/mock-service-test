@@ -1,1 +1,1 @@
-web: java -cp target/classes/:target/dependency/* com.example.restservice.GreetingController
+web: java -war target/demo-0.0.1-SNAPSHOT.war
