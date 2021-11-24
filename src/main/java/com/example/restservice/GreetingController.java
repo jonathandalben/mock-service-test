@@ -4,6 +4,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 @Configuration
 @SpringBootApplication
 @RestController
-public class GreetingController {
+public class GreetingController extends SpringBootServletInitializer {
 	public static void main(String[] args) {
 		SpringApplication.run(GreetingController.class, args);
 		//System.setProperty("javax.net.ssl.trustStore", "C:/Users/benigjo/Downloads/baeldung_public_cert.cer");
 	    //System.setProperty("javax.net.ssl.trustStorePassword", "secret");
 	}
+	
+	@Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(GreetingController.class);
+    }
 	
 	private static final String template = "Hello, %s!";
 	private final AtomicLong counter = new AtomicLong();
