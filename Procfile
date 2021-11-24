@@ -1,1 +1,1 @@
-web: java -cp target/classes/com/example/restservice*
+web: java -cp target/classes/com/example/restservice/GreetingController
