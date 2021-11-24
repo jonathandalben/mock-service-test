@@ -1,1 +1,1 @@
-worker: java -jar target/<jarname>.jar
+worker: java -jar target/demo-0.0.1-SNAPSHOT.jar
