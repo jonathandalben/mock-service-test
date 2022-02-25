@@ -10,9 +10,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        $("#loadSched").click(function(){
-            $("spinnerComponent").show();
+        $(document).ready(function(){
+            $("spinnerComponent").hide();
+            
+            $("#loadSched").click(function(){
+                $("spinnerComponent").show();
+              });
           });
+        
     </script>
 </head>
 <body>
@@ -20,11 +25,38 @@ WELCOME TO SPRING BOOT THYMELEAF
 <p style="font-weight: bold;">Author</p>
 <p style="color: red">Jonathan Beniga</p>
 <P>
-    <button type="button" id="loadSched" class="btn btn-primary">Veterenary book now!</button>
+    <button type="button" id="loadSched" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Veterenary book now!</button>
 </P>
 <p id="spinnerComponent">
     this display the available schedule in place... 
     <div class="spinner-border"></div>
 </p>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">App Warning</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          This is prototype UI
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+</div>
+<!-- The Modal -->
+
 </body>
 </html>
