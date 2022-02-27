@@ -40,6 +40,11 @@ public class GreetingController extends SpringBootServletInitializer {
 	public String showUserList(Model model) {
 	    return "index";
 	}
+
+	@GetMapping("/customPathMobileView")
+	public String showUserList(Model model) {
+	    return "customPathMobileView";
+	}
 	
 	@PostMapping("/v2/common/notification/v1/markets/hkg/messages")
 	public String postNotificationV1() {
