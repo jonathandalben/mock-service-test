@@ -42,7 +42,7 @@ public class GreetingController extends SpringBootServletInitializer {
 	}
 
 	@GetMapping("/customPathMobileView")
-	public String showUserList(Model model) {
+	public String customPathMobileView(Model model) {
 	    return "customPathMobileView";
 	}
 	
