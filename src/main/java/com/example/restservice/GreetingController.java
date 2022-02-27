@@ -43,7 +43,7 @@ public class GreetingController extends SpringBootServletInitializer {
 
 	@GetMapping("/customPathMobileView")
 	public String customPathMobileView(Model model) {
-	    return "customPathMobileView";
+	    return "/templates/customPathMobileView";
 	}
 	
 	@PostMapping("/v2/common/notification/v1/markets/hkg/messages")
