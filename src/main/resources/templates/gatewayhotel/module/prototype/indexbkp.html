@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Proto-type">
+    <meta name="author" content="Ray">
+ 
+    <title>Project Prototype</title>
+ 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/assets/css/bootstrap.min.css" th:href="@{/assets/css/bootstrap.min.css}" rel="stylesheet" />
+    <link href="/assets/css/bootstrap.css" th:href="@{/assets/css/bootstrap.css}" rel="stylesheet" />
+    <link href="/assets/css/style.css" th:href="@{/assets/css/style.css}" rel="stylesheet" />
+	<script src="/assets/js/jquery.min.js" th:src="@{/assets/js/jquery.min.js}"></script>
+	<script src="/assets/js/bootstrap.min.js" th:src="@{/assets/js/bootstrap.min.js}"></script>
+   
+ <style type="text/css">
+
+*{
+  margin:0;
+  padding:0;
+  list-style-type:none;
+  font-family:Arial;
+  font-size:14px;
+  font-weight: 30px;
+}
+
+a{
+  display:block;
+  padding:5px 10px;
+  color:#fff;
+  text-decoration:none;
+}
+
+.style>a:hover{
+    height: 50px;
+    border-bottom:4px solid green;
+    position:relative;
+    display:inline-block;
+    transition:1s transform ease;
+}
+
+.parent-menu:hover .child-layout{
+display:inline;
+position: absolute;
+
+}
+
+.child{
+  display:none;
+}
+
+.child-layout>li>a{
+  background: linear-gradient(to bottom, #555, #555,#555);
+
+}
+
+.child-layout>li{
+  margin-top:1px;
+}
+
+.child-menu{
+  position:relative;
+  width:120%;
+
+}
+
+li>a:hover{
+  font-size:14px;
+  color: #ffffff;
+  text-decoration: none;
+  display: block !important;
+}
+
+</style>
+  
+        
+</head>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+         <a class="navbar-brand" href="/"><img src="/assets/images/gatewayhotel-logo.png" th:src="@{/assets/images/gatewayhotel-logo.png}"></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    
+      <form class="navbar-form navbar-right">
+        	<div class="col-lg-12">
+        
+        	</div>
+      </form>
+      <ul class="nav navbar-nav navbar-left">
+        <li class="parent-menu style"><a href="/">Dashboard</a></li>
+                 
+       <li class="parent-menu style" ><a href="" >Rooms Availability</a>
+        <ul class="child child-layout">
+        <li class="child-menu"><a href="<?php echo base_url('allproducts') ?>">All Rooms</a></li>
+  	    <li class="child-menu"><a href="<?php echo base_url('admin/create') ?>">Check-Ins</a></li>
+        <li class="child-menu"><a href="<?php echo base_url('admin/create') ?>">Check-Outs</a></li>
+  		</ul>
+  		</li>
+  	 <li class="parent-menu style"><a href="">Reports</a></li>
+    
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  
+    </div>
+    <body>
+<div class="container col-sm-offset-1">
+      <br>
+      <br>
+      <br>
+      <br>
+  
+  <tr>
+  <td><button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#exampleModal" data-whatever="Juan Dela Cruz"><span class="glyphicon glyphicon-check" aria-label="Bottom" aria-hidden="true"></span> CHECK-IN</button></td>
+  <td><button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-th-list" aria-label="Bottom" aria-hidden="true"></span> CHECK-OUT</button></td>
+  <td><button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-search" aria-label="Bottom" aria-hidden="true"></span> CHECK ROOMS</button></td>
+</tr>
+</div>
+
+<div class="container col-sm-offset-1">
+<h2>Guest Record(s)</h2>
+<font size="2" face="Courier New">
+<table width="1000" font="20 px !important" border="1" cellspacing="2" cellpadding="2">
+  
+  <tr style="background:#CCC">
+    <th>ROOM NUMBER</th>
+    <th>GUEST NAME</th>
+    <th>NUMBER OF PERSON(S)</th>
+    <th>CHECK-IN</th>
+    <th>CHECK-OUT</th>
+    <th>STATUS</th>
+  </tr>
+  <tr><td>1</td><td>JUAN DELA CRUZ</td><td>2</td><td>8:00 AM</td><td>8:00 PM</td><td>PAID</td></tr>
+  <tr><td>2</td><td>JUAN DELA CRUZ</td><td>2</td><td>8:00 AM</td><td>8:00 PM</td><td>PAID</td></tr>
+  <tr><td>3</td><td>JUAN DELA CRUZ</td><td>2</td><td>8:00 AM</td><td>8:00 PM</td><td>PAID</td></tr>
+  <tr><td>4</td><td>JUAN DELA CRUZ</td><td>2</td><td>8:00 AM</td><td>8:00 PM</td><td>PAID</td></tr>
+  <tr><td>5</td><td>JUAN DELA CRUZ</td><td>2</td><td>8:00 AM</td><td>8:00 PM</td><td>PAID</td></tr>
+  <tr><td>6</td><td>JUAN DELA CRUZ</td><td>2</td><td>8:00 AM</td><td>8:00 PM</td><td>PAID</td></tr>
+  <tr><td>7</td><td>JUAN DELA CRUZ</td><td>2</td><td>8:00 AM</td><td>8:00 PM</td><td>PAID</td></tr>
+  <tr><td>8</td><td>JUAN DELA CRUZ</td><td>2</td><td>8:00 AM</td><td>8:00 PM</td><td>PAID</td></tr>
+  <tr><td>9</td><td>JUAN DELA CRUZ</td><td>2</td><td>8:00 AM</td><td>8:00 PM</td><td>PAID</td></tr>
+  <tr><td>10</td><td>JUAN DELA CRUZ</td><td>2</td><td>8:00 AM</td><td>8:00 PM</td><td>PAID</td></tr>
+</table>
+
+</div>
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Check-In Information for</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Guest Name:</label>
+            <input type="text" class="form-control" id="recipient-name" placeholder="Surname,Firstname,Middle name">
+          </div>
+           <div class="form-group">
+            <label for="room" class="col-form-label">Room Number:</label>
+            <input type="text" class="form-control" placeholder="Room Number" >
+          </div>
+          <div class="form-group">
+            <label for="guest" class="col-form-label">Guest Count(s):</label>
+            <input type="text" class="form-control" placeholder="Guest Count" >
+          </div>
+           <div class="form-group">
+            <label for="checkin" class="col-form-label">Check-In:</label>
+            <input type="text" class="form-control" placeholder="Check-In" >
+          </div>
+          <div class="form-group">
+            <label for="checkout" class="col-form-label">Check-Out:</label>
+            <input type="text" class="form-control" placeholder="Check-Out" >
+          </div>
+           <div class="form-group">
+            <label for="status" class="col-form-label">Status:</label>
+            <input type="text" class="form-control" placeholder="Paid or Unpaid" >
+          </div>
+          
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Remark(s):</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('Check-In information for ' + recipient)
+  modal.find('.modal-body input').val(recipient)
+})
+</script>
+</body>
+
+
+<div>
+  <footer>
+    <div class="fixed-bottom"> 
+      <hr>
+      <center><small>© Copyright 2020 </small> <small>GATEWAY HOTEL INC.</small></center> <!-- Copyright information -->
+    </div>
+</footer>
+   
+    </div>
+</div>
+</html>

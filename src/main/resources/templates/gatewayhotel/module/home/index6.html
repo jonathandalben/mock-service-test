@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Gateway Hotel - WebApp</title>
+
+	<!-- <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+	<script src="/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+	<script src="/js/bootstrap-loading.min.js" th:src="@{/js/bootstrap-loading.min.js}"></script> -->
+	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	
+	
+	<!-- W3SCHOOLS -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+	
+	<link rel="apple-touch-icon" sizes="180x180" href="/icon/module/home/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/icon/module/home/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/icon/module/home/favicon-16x16.png">
+	<link rel="manifest" href="/icon/module/home/site.webmanifest">
+  
+	<script type="text/javascript" th:inline="javascript">
+	    
+		$(document).ready(function(){
+			
+			// LOADING SETUP
+		    var startLoading =  function() {
+		    	$("#loadingModal").modal({backdrop: "static"});
+		    };
+		    
+		    var stopLoading =  function() {
+		    	$("#loadingModal").modal({backdrop: false});
+		    };
+		    
+		    /*var triggerLoading =  async function(loading,i) {
+		    	await sleep(1000);
+	            loading.setAttribute("style", "width:"+i+"%");
+	            loading.innerText = ""+i+"%";
+		    };*/
+		    
+		    var triggerLoading = function(loading,i) {
+		    	setTimeout(function() { 
+		            loading.setAttribute("style", "width:"+i+"%");
+		            loading.innerText = ""+i+"%";
+		            
+		            if(i === 100){
+		            	$('#loadingModal').modal('hide');	
+		            }
+		    	  }, 50 * i); 
+		    };
+		    
+		    var sleep =  function(ms) {
+		    	return new Promise(resolve => setTimeout(resolve, ms));
+		    };
+
+		    document.getElementById("roomSearch").addEventListener("click", function() {
+		    	let allAvailableRooms = document.getElementById('allAvailableRooms');
+		    	allAvailableRooms.innerHTML = '';
+		    	roomSearch(allAvailableRooms);
+		    }, false);
+		    
+		    var roomSearch =  function(allAvailableRooms) {
+		    	$.ajax(
+		    	        {
+		    	            type: "GET",
+		    	            data: {roomSearchField : document.getElementById("roomSearchField").value},
+		    	            cache: false,
+		    	            url: "room/search", 
+		    	            //dataType: 'json',
+		    	            success: function(data){		    	            
+		    	            	console.log("roomSearch data : "+JSON.stringify(data));
+		    	            	console.log("allAvailableRooms data : "+allAvailableRooms.innerHTML);
+		    	            	
+		    	            	let dataHead = ['id','roomNumber','roomCategory','roomRate','roomType'];
+		    	            	
+		    	            	for(let i=0; i<data.length; i++){
+		    	            		let tr = document.createElement("TR");
+		    	            		for(let j=0; j<dataHead.length; j++){
+		    	            			let td = document.createElement("TD");
+		    	            			td.innerText = data[i][dataHead[j]];
+		    	            			tr.appendChild(td);
+		    	            		}
+		    	            		allAvailableRooms.appendChild(tr);
+		    	            		/*let tr = document.createElement("TR");
+		    	            		let td = document.createElement("TD");
+		    	            		td.innerText = data[i].id;
+		    	            		td.innerText = data[i].roomNumber;
+		    	            		td.innerText = data[i].roomCategory;
+		    	            		td.innerText = data[i].roomRate;
+		    	            		td.innerText = data[i].roomType;*/
+		    	            	}
+		    	            },
+		    	            error: function(){
+		    	                console.log("roomSearch error");
+		    	            }
+
+		    	        });
+		    };
+		    
+		    // customer start
+		    document.getElementById("customerSearch").addEventListener("click", function() {
+		    	let allCustomers = document.getElementById('allCustomers');
+		    	allCustomers.innerHTML = '';
+		    	customerSearch(allCustomers);
+		    }, false);
+		    
+		    var customerSearch =  function(allCustomers) {
+		    	$.ajax(
+		    	        {
+		    	            type: "GET",
+		    	            data: {customerSearchField : document.getElementById("customerSearchField").value},
+		    	            cache: false,
+		    	            url: "customer/search", 
+		    	            success: function(data){		    	            
+		    	            	console.log("customerSearch data : "+JSON.stringify(data));
+		    	            	console.log("allCustomers data : "+allCustomers.innerHTML);
+		    	            	
+		    	            	let dataHead = ['id','firstName','lastName'];
+		    	            	
+		    	            	for(let i=0; i<data.length; i++){
+		    	            		let tr = document.createElement("TR");
+		    	            		for(let j=0; j<dataHead.length; j++){
+		    	            			let td = document.createElement("TD");
+		    	            			td.innerText = data[i][dataHead[j]];
+		    	            			tr.appendChild(td);
+		    	            		}
+		    	            		allCustomers.appendChild(tr);
+		    	            	}
+		    	            },
+		    	            error: function(){
+		    	                console.log("customerSearch error");
+		    	            }
+
+		    	        });
+		    };
+		    // customer end
+		    
+		    // check-in start
+		    document.getElementById("checkInSearch").addEventListener("click", function() {
+		    	let allCheckIns = document.getElementById('allCheckIns');
+		    	allCheckIns.innerHTML = '';
+		    	checkinSearch(allCheckIns);
+		    }, false);
+		    
+		    var checkinSearch =  function(allCheckIns) {
+		    	$.ajax(
+		    	        {
+		    	            type: "GET",
+		    	            data: {checkInSearchField : document.getElementById("checkInSearchField").value},
+		    	            cache: false,
+		    	            url: "checkIn/search", 
+		    	            success: function(data){		    	            
+		    	            	console.log("checkiInSearch data : "+JSON.stringify(data));
+		    	            	console.log("allCheckIns data : "+allCheckIns.innerHTML);
+		    	            	
+		    	            	let dataHead = ['id','checkIn','room', 'customer', 'customerGroup'];
+		    	            	
+		    	            	for(let i=0; i<data.length; i++){
+		    	            		let tr = document.createElement("TR");
+		    	            		for(let j=0; j<dataHead.length; j++){
+		    	            			let td = document.createElement("TD");
+		    	            			td.innerText = data[i][dataHead[j]];
+		    	            			tr.appendChild(td);
+		    	            		}
+		    	            		allCheckIns.appendChild(tr);
+		    	            	}
+		    	            },
+		    	            error: function(){
+		    	                console.log("checkiInSearch error");
+		    	            }
+
+		    	        });
+		    };
+		    // check-in end
+		    
+		    // check-out start
+		    document.getElementById("checkOutSearch").addEventListener("click", function() {
+		    	let allCheckOuts = document.getElementById('allCheckOuts');
+		    	allCheckOuts.innerHTML = '';
+		    	checkOutSearch(allCheckOuts);
+		    }, false);
+		    
+		    var checkOutSearch =  function(allCheckOuts) {
+		    	$.ajax(
+		    	        {
+		    	            type: "GET",
+		    	            data: {checkOutSearchField : document.getElementById("checkOutSearchField").value},
+		    	            cache: false,
+		    	            url: "checkOut/search", 
+		    	            success: function(data){		    	            
+		    	            	console.log("checkiOutSearch data : "+JSON.stringify(data));
+		    	            	console.log("allCheckOuts data : "+allCheckOuts.innerHTML);
+		    	            	
+		    	            	let dataHead = ['id','checkOut','room', 'customer', 'customerGroup'];
+		    	            	
+		    	            	for(let i=0; i<data.length; i++){
+		    	            		let tr = document.createElement("TR");
+		    	            		for(let j=0; j<dataHead.length; j++){
+		    	            			let td = document.createElement("TD");
+		    	            			td.innerText = data[i][dataHead[j]];
+		    	            			tr.appendChild(td);
+		    	            		}
+		    	            		allCheckOuts.appendChild(tr);
+		    	            	}
+		    	            },
+		    	            error: function(){
+		    	                console.log("checkOutSearch error");
+		    	            }
+
+		    	        });
+		    };
+		    // check-out end
+		    
+		    /*function sleep(ms) {
+		    	  return new Promise(resolve => setTimeout(resolve, ms));
+		    	}*/
+		    
+			if (window.jQuery) {  
+		        // jQuery is loaded  
+		        console.log("Yeah!");
+		        
+		        let menuList = ["Master Entry","Guest","Point of Sale (POS)","Accounting","Payroll","SMS-LAN-Chat","Search Records","Reports","Logs","Tools","Settings","Help","About","Lock","Logout"];
+		        let menuListContainer = document.getElementById("menuListContainer");
+		        for(var i=0; i<menuList.length; i++){
+		        	var btn = document.createElement("BUTTON");   // Create a <button> element
+		        	var div = document.createElement("DIV");
+		        	div.className = "btn-group";
+		        	btn.innerHTML = menuList[i];                  // Insert text
+		        	btn.className = "btn btn-link dropdown-toggle";
+		        	btn.setAttribute("data-toggle", "dropdown")
+		        	btn.type = "button";
+		        	var span = document.createElement("SPAN");
+		        	span.className = "caret";
+		        	var ul = document.createElement("UL");
+		        	ul.className="dropdown-menu";
+		        	ul.role="menu";
+		        	var li = document.createElement("LI");
+		        	var a = document.createElement("A");
+		        	a.href="#";
+		        	a.innerHTML="Come on";
+		        	btn.appendChild(span);
+		        	li.appendChild(a);
+		        	ul.appendChild(li);
+		        	div.appendChild(btn);
+		        	div.appendChild(ul);
+		        	menuListContainer.appendChild(div);           // Append <button> to <body>
+		        }
+		        
+		        let buttonList = ["Employee","Attendance","Guest","Check In","Check Out","Reservation","Room Service","Restaurant POS","Laundry Billing","Stock","Chat","Advance","Payroll","Database","Logs","Help","Logout"]
+		        let buttonListContainer = document.getElementById("buttonListContainer");
+		        for(var i=0; i<buttonList.length; i++){
+		        	var btn = document.createElement("BUTTON");   // Create a <button> element
+		        	btn.innerHTML = buttonList[i];                  // Insert text
+		        	btn.className = "btn btn-link";
+		        	buttonListContainer.appendChild(btn);           // Append <button> to <body>
+		        }
+		        
+		        
+		        
+		        var loading = document.getElementById("loading");
+		        loading.setAttribute("style", "width:"+0+"%");
+		        
+		        startLoading();
+
+		        for(var i=0;i<100;i++){
+		        	triggerLoading(loading, i+1);
+		        }
+		        
+		        stopLoading();
+
+		    } else {
+		        // jQuery is not loaded
+		        console.log("Doesn't Work");
+		    }
+		});
+	</script>
+</head>
+<body>
+
+
+<div class="container-fluid">
+  <h5>Gateway Hotel <small>- WebApp</small></h5>
+  
+  <!-- FIRST LEVEL-START -->
+  <div class="row" id="menuListContainer">
+  
+  </div>
+  <!-- FIRST LEVEL-END -->
+  
+  <!-- SECOND LEVEL-START -->
+  <div class="row" id="buttonListContainer">
+  
+  </div>
+  <!-- SECOND LEVEL-END -->
+  
+  <!-- THIRD LEVEL-START -->
+  <div class="row" style="border: 1px solid gray;">
+  	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+  		<div style="border: 1px solid gray; margin: 3px;">
+    		<div  class="text-info" style="width: fit-content;margin-top:-10px;margin-left:5px;background:white;white-space: nowrap;">Room Availability</div>
+		    <div class="row">
+		        <div class="col-4">
+		            Date In :
+		        </div>
+		        <div class="col-4">
+		            <input id="roomSearchField" type="text">
+		        </div>
+		        <div class="col-4">
+		            <button id="roomSearch" type="button" class="btn btn-warning btn-block">Search</button>
+		        </div>
+		    </div>
+		    
+		    <div class="row">
+		        <div class="col-4">
+		            Date Out :
+		        </div>
+		        <div class="col-4">
+		            <input type="text">
+		        </div>
+		        <div class="col-4">
+		            <button type="button" class="btn btn-primary btn-block">Reset</button>
+		        </div>
+		    </div>
+    
+    	<div class="row">
+			    <div class="col-10">
+				    <div class="text-info" style="border:1px solid gray; margin: 3px;">
+				        <div style="width: fit-content;margin-top:-10px;margin-left:5px;background:white;white-space: nowrap;">Operation</div>
+					    <div>
+					        <input type="radio" name="test"> Room Reservation <input type="radio" name="test"> Check In
+					    </div>
+					</div>
+			    </div>
+			        
+			</div>
+	    </div>
+  	</div>
+  	
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+  		<div style="border: 1px solid gray; margin: 3px;">
+    		<div  class="text-info" style="width: fit-content;margin-top:-10px;margin-left:5px;background:white;white-space: nowrap;">Room Availability</div>
+		    <div class="row">
+		        <div class="col-4">
+		            Customer :
+		        </div>
+		        <div class="col-4">
+		            <input id="customerSearchField" type="text">
+		        </div>
+		        <div class="col-4">
+		            <button id="customerSearch" type="button" class="btn btn-warning btn-block">Search</button>
+		        </div>
+		    </div>
+		    
+		    <div class="row">
+		        <div class="col-4">
+		            Date Out :
+		        </div>
+		        <div class="col-4">
+		            <input type="text">
+		        </div>
+		        <div class="col-4">
+		            <button type="button" class="btn btn-primary btn-block">Reset</button>
+		        </div>
+		    </div>
+    
+    	<div class="row">
+			    <div class="col-10">
+				    <div style="border:1px solid gray; margin: 3px;">
+				        <div class="text-info" style="width: fit-content;margin-top:-10px;margin-left:5px;background:white;white-space: nowrap;">Operation</div>
+					    <div>
+					        <input type="radio" name="test"> Room Reservation <input type="radio" name="test"> Check In
+					    </div>
+					</div>
+			    </div>
+			        
+			</div>
+	    </div>
+  	</div>
+  	
+  	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+  		<div style="border: 1px solid gray; margin: 3px;">
+    		<div  class="text-info" style="width: fit-content;margin-top:-10px;margin-left:5px;background:white;white-space: nowrap;">Room Availability</div>
+		    <div class="row">
+		        <div class="col-4">
+		            Check in :
+		        </div>
+		        <div class="col-4">
+		            <input id="checkInSearchField" type="text">
+		        </div>
+		        <div class="col-4">
+		            <button id="checkInSearch" type="button" class="btn btn-warning btn-block">Search</button>
+		        </div>
+		    </div>
+		    
+		    <div class="row">
+		        <div class="col-4">
+		            Check out :
+		        </div>
+		        <div class="col-4">
+		            <input id="checkOutSearchField" type="text">
+		        </div>
+		        <div class="col-4">
+		            <button id="checkOutSearch" type="button" class="btn btn-primary btn-block">Reset</button>
+		        </div>
+		    </div>
+    
+    	<div class="row">
+			    <div class="col-10">
+				    <div style="border:1px solid gray; margin: 3px;">
+				        <div class="text-info" style="width: fit-content;margin-top:-10px;margin-left:5px;background:white;white-space: nowrap;">Operation</div>
+					    <div>
+					        <input type="radio" name="test"> Room Reservation <input type="radio" name="test"> Check In
+					    </div>
+					</div>
+			    </div>
+			        
+			</div>
+	    </div>
+  	</div>
+  	
+  </div>
+  <!-- THIRD LEVEL-END -->
+  
+  
+  <!-- FOURTH LEVEL-START -->
+  <div class="row" style="border: 1px solid gray;">
+  	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+  		<div class="row" style="margin: 3px;">
+  			<div class="col-12" style="border: 1px solid gray;">
+		      <table class="table">
+			    <thead>
+			      <tr>
+			        <th>Id</th>
+			        <th>Number</th>
+			        <th>Category</th>
+			        <th>Rate</th>
+			        <th>Type</th>
+			      </tr>
+			    </thead>
+
+			    <tbody id="allAvailableRooms">
+				    <th:block th:each="room: ${allAvailableRooms}">
+				    	<tr>
+				    	   <td th:text="${room.id}"></td>
+					       <td th:text="${room.roomNumber}"></td>
+					       <td th:text="${room.roomCategory}"></td>
+					       <td th:text="${room.roomRate}"></td>
+					       <td th:text="${room.roomType}"></td>
+				    	</tr>
+					 </th:block>
+			    </tbody>
+			  </table>
+		    </div>
+  		</div>
+  		<div class="row" style="margin: 3px;">
+  			<div class="col-12" style="border: 1px solid gray;">
+		      <table class="table table-striped">
+			    <thead>
+			      <tr>
+			        <th>Id</th>
+			        <th>First name</th>
+			        <th>Last name</th>
+			      </tr>
+			    </thead>
+			    <tbody id="allCustomers">
+				    <th:block th:each="customer: ${allCustomers}">
+				    	<tr>
+				    	   <td th:text="${customer.id}"></td>
+					       <td th:text="${customer.firstName}"></td>
+					       <td th:text="${customer.lastName}"></td>
+				    	</tr>
+					 </th:block>
+			    </tbody>
+			  </table>
+		    </div>
+  		</div>
+  	</div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+  		<div style="border: 1px solid gray; margin: 3px;">
+	      <table class="table table-bordered">
+		    <thead>
+		      <tr>
+		        <th>Firstname</th>
+		        <th>Lastname</th>
+		        <th>Email</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr>
+		        <td>John</td>
+		        <td>Doe</td>
+		        <td>john@example.com</td>
+		      </tr>
+		      <tr>
+		        <td>Mary</td>
+		        <td>Moe</td>
+		        <td>mary@example.com</td>
+		      </tr>
+		      <tr>
+		        <td>July</td>
+		        <td>Dooley</td>
+		        <td>july@example.com</td>
+		      </tr>
+		    </tbody>
+		  </table>
+		    
+		    <table class="table">
+		    <thead>
+		      <tr>
+		        <th>Firstname</th>
+		        <th>Lastname</th>
+		        <th>Email</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr>
+		        <td>Default</td>
+		        <td>Defaultson</td>
+		        <td>def@somemail.com</td>
+		      </tr>      
+		      <tr class="success">
+		        <td>Success</td>
+		        <td>Doe</td>
+		        <td>john@example.com</td>
+		      </tr>
+		      <tr class="danger">
+		        <td>Danger</td>
+		        <td>Moe</td>
+		        <td>mary@example.com</td>
+		      </tr>
+		      <tr class="info">
+		        <td>Info</td>
+		        <td>Dooley</td>
+		        <td>july@example.com</td>
+		      </tr>
+		      <tr class="warning">
+		        <td>Warning</td>
+		        <td>Refs</td>
+		        <td>bo@example.com</td>
+		      </tr>
+		      <tr class="active">
+		        <td>Active</td>
+		        <td>Activeson</td>
+		        <td>act@example.com</td>
+		      </tr>
+		    </tbody>
+		  </table>
+	    </div>
+  	</div>
+  	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+  		<div style="border: 1px solid gray; margin: 3px;">
+	      <table class="table table-hover">
+		    <thead>
+		      <tr>
+		        <th>Id</th>
+		        <th>Check In</th>
+		        <th>Room</th>
+		        <th>Customer</th>
+		        <th>Customer Group</th>
+		      </tr>
+		    </thead>
+		    <tbody id="allCheckIns">
+			    <th:block th:each="checkIn: ${allCheckIns}">
+			    	<tr>
+			    	   <td th:text="${checkIn.id}"></td>
+				       <td th:text="${checkIn.checkIn}"></td>
+				       <td th:text="${checkIn.room}"></td>
+				       <td th:text="${checkIn.customer}"></td>
+				       <td th:text="${checkIn.customerGroup}"></td>
+			    	</tr>
+				 </th:block>
+		    </tbody>
+		  </table>
+		    
+		    <table class="table table-condensed">
+		    <thead>
+		      <tr>
+		        <th>Id</th>
+		        <th>Check Out</th>
+		        <th>Room</th>
+		        <th>Customer</th>
+		        <th>Customer Group</th>
+		      </tr>
+		    </thead>
+		    <tbody id="allCheckOuts">
+			    <th:block th:each="checkOut: ${allCheckOuts}">
+			    	<tr>
+			    	   <td th:text="${checkOut.id}"></td>
+				       <td th:text="${checkOut.checkOut}"></td>
+				       <td th:text="${checkOut.room}"></td>
+				       <td th:text="${checkOut.customer}"></td>
+				       <td th:text="${checkOut.customerGroup}"></td>
+			    	</tr>
+				 </th:block>
+		    </tbody>
+		  </table>
+	    </div>
+  	</div>
+  </div>
+  <!-- FOURTH LEVEL-END -->
+  
+  <div class="row" style="border: 1px solid gray;position: fixed;bottom: 0;width: 100%;background: white;">
+  	<div style="margin-left: 15px;">
+  		Login As : (icon) Admin Admin
+  	</div>
+  </div>
+  
+</div>
+
+
+	<!-- LOADING MODAL -->
+	<!-- Modal -->
+  <div class="modal fade" id="loadingModal" role="dialog">
+    <div class="modal-dialog" style="min-height: 100vh;display: flex;align-items: center;margin-top: 0;margin-bottom: 0;">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="progress">
+		    <div id="loading" class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+		      
+		    </div>
+		  </div>
+      </div>
+      
+    </div>
+  </div>
+
+</body>
+</html>

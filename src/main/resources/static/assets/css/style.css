@@ -1,0 +1,189 @@
+body {
+    margin-top: 0px!important;   
+    overflow-y:hidden; /*disabled vertical scroll*/
+    overflow-x:hidden; /*disabled horizontal scroll*/
+
+}
+th{
+	background-color: green;
+	color: #fff;
+	font-size: 10px;
+}
+td{
+	font-size: 11px;
+}
+
+#tiimeline{
+	margin-top: 10px;
+}
+
+.panel-default{
+	margin-top: 50px;
+	box-shadow: none;
+	border: none;
+	background: none;
+}
+#panel-heading,.panel-footer{
+	background-color: #337AB7;
+	color:white;
+
+}
+
+.navbar-nav > li {
+    display: inline-block;
+
+}
+
+#xs-menu > li {
+    display: inline-block;
+    padding-top: 0px;
+	padding-bottom: 0px;
+	margin:none;
+
+
+}
+
+#xs-menu > li a.hover {
+ display: none;
+
+
+}
+
+.navbar-default{
+    background-color: #F8F8F8;
+    color:#fff;
+    border:none;
+
+}
+.navbar-default .navbar-nav > li > a {
+    color: #f1eeee;
+}
+
+.nav {
+   font-family:Arial;
+   font-size:15px;
+
+}
+.navbar-default .navbar-nav > li > a:hover {
+	color:yellow;
+}
+
+
+.panel-body{
+	background-color: #E9EAED;
+	color:#555555;
+}
+.navbar-brand{
+  padding-top: 4px;
+
+}
+.badge{
+	background-color:  #337AB7;
+}
+
+.glyphicon-add{
+	
+	position: relative;
+	border-radius: 50%;
+	width: 23px;
+	height: 23px;
+	font-size: 15px;
+	background: green;
+	padding-top: 5px;
+	padding-left: 5px;
+}
+
+.glyphicon-edit{
+	
+	position: relative;
+	border-radius: 50%;
+	width: 23px;
+	height: 23px;
+	font-size: 15px;
+	background: green;
+	padding-top: 5px;
+	padding-left: 5px;
+	margin-left: 4px;
+}
+.glyphicon-remove{
+	
+	position: relative;
+	border-radius: 50%;
+	width: 23px;
+	height: 23px;
+	font-size: 15px;
+	background: green;
+	padding-top: 5px;
+	padding-left: 3px;
+	margin-left: 4px;
+}
+
+#remove{
+	color: white;
+
+}
+#pencil{
+	color: white;
+	padding-right: 10px;
+}
+#plus{
+	color: white;
+	padding-right: 10px;
+}
+.table-responsive{
+	height: 400px !important;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+#login{
+	padding-top:70px;	
+}
+
+
+.btn-lg, .btn-group-lg > .btn {
+    padding: 20px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+    width: 180px;
+}
+
+.btn-default {
+    color: #333;
+    background-color:#ccc;
+    border-color: #f9f9f9;
+
+
+}
+
+.btn-default:hover {
+    background-color:#4bb739;
+}
+
+.glyphicon-remove:hover {
+	background:#4bb739;
+}
+
+.form-group col-lg-11{
+  position: bottom;
+ 
+}
+
+ @media only screen and (max-width: 1224px) {
+ .navbar-default{
+    color:#fff;
+    background-color: #423c3c;
+    opacity: 0.9;
+
+}
+}
+
+@media only screen and (min-width: 250px) {
+   .navbar-default{
+    background-color: #423c3c;
+    opacity: 0.9;
+
+    
+}
+
+}
